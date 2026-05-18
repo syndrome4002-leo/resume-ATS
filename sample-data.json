@@ -22,6 +22,7 @@
   "competencies": [
     {
       "title": "Executive Leadership & Digital Transformation",
+      "icon": "leadership",
       "bullets": [
         "Drive enterprise digital transformation and culture change",
         "Strategic, hands-on leader focused on execution and measurable outcomes",
@@ -30,6 +31,7 @@
     },
     {
       "title": "Cloud, Infrastructure & IT Modernization",
+      "icon": "cloud",
       "bullets": [
         "Deep expertise in cloud and hybrid architecture, migrations, operations (AWS, Azure)",
         "Led large-scale infrastructure modernization improving scalability, resilience, cost efficiency",
@@ -38,6 +40,7 @@
     },
     {
       "title": "Cybersecurity, Risk & Compliance",
+      "icon": "shield",
       "bullets": [
         "Led cybersecurity, privacy, and compliance (HITRUST, HIPAA, SOC 2, Zero Trust)",
         "Led audit readiness, risk management, and security governance",
@@ -46,6 +49,7 @@
     },
     {
       "title": "Mergers & Acquisitions",
+      "icon": "merge",
       "bullets": [
         "Led technology due-diligence and integration strategy for 9 acquisitions",
         "Executed rapid post-merger integration and systems consolidation",
@@ -54,6 +58,7 @@
     },
     {
       "title": "Operational Excellence & Financial Management",
+      "icon": "chart",
       "bullets": [
         "Optimized operations through process redesign, automation, consolidation",
         "Designed and operated highly available platforms achieving 99.999% uptime",
@@ -62,6 +67,7 @@
     },
     {
       "title": "Enterprise Technology & Network Architecture",
+      "icon": "network",
       "bullets": [
         "Enterprise Business Continuity & Disaster Recovery (BCDR) across environments",
         "Broad technical depth across systems, storage, virtualization, operations",
@@ -198,6 +204,7 @@
   "technical": [
     {
       "category": "Systems & Infrastructure",
+      "icon": "server",
       "items": [
         { "label": "Cloud",          "values": ["AWS", "Azure", "Google Workspace", "Microsoft 365"] },
         { "label": "Virtualization", "values": ["Hyper-V", "VMware", "Proxmox", "KVM"] },
@@ -209,6 +216,7 @@
     },
     {
       "category": "Network & Telecom",
+      "icon": "cable",
       "items": [
         { "label": "Routing",   "values": ["Cisco CatOS", "IOS", "NX-OS", "ACI"] },
         { "label": "Switching", "values": ["Cisco", "Meraki", "Fortinet", "Ubiquiti"] },
@@ -220,6 +228,7 @@
     },
     {
       "category": "Development & Business Intelligence",
+      "icon": "code",
       "items": [
         { "label": "Platforms",     "values": ["Azure DevOps", "Visual Studio", "Git", "LAMP/WAMP"] },
         { "label": "Languages",     "values": ["Python", "PHP", ".NET", "JavaScript", "C#", "REST APIs"] },
@@ -231,6 +240,7 @@
     },
     {
       "category": "Applications & Security",
+      "icon": "grid",
       "items": [
         { "label": "CRM",      "values": ["Dynamics", "Salesforce", "VersaSRS", "HubSpot", "custom OSS/BSS"] },
         { "label": "Security", "values": ["Qualys", "Tenable", "Taegis", "Endpoint Central", "Zero Trust"] },

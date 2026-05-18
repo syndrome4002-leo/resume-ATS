@@ -145,12 +145,39 @@ html, body {
 }
 
 .hero-contact > * {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
   color: var(--body);
   text-decoration: none;
 }
 
 .hero-contact a:hover { color: var(--accent); }
+
+.hero-contact .icon {
+  width: 11px;
+  height: 11px;
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   ICONS — inline SVG sprite (defined once at top of <body>, referenced via
+            <svg class="icon"><use href="#icon-*"/></svg>). ATS-safe:
+            aria-hidden + no <text> elements inside symbols.
+   -------------------------------------------------------------------------- */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: none;
+  flex-shrink: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.icon use { pointer-events: none; }
 
 /* --------------------------------------------------------------------------
    CAREER HIGHLIGHTS — marketing-brochure metric band
@@ -348,6 +375,17 @@ ul { list-style: none; margin: 0; padding: 0; }
   pointer-events: none;
 }
 
+/* Themed line icon at the top of each competency tile */
+.competency-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  color: var(--accent);
+  margin: 0 0 5px;
+  position: relative;
+  z-index: 1;
+}
+
 .competency h3 {
   position: relative;
   font-size: 10.25pt;
@@ -377,14 +415,16 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin-bottom: 0;
 }
 
-/* Refined dash bullet — editorial, more confident than a small square */
+/* Refined dash bullet — true 1px hairline so it renders consistently across
+   browsers/zoom levels (1.5px rounds unpredictably: 2px on 1x displays,
+   3 device-px on retina, 1px in Firefox — making it look "bold") */
 .competency ul li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 0.65em;
-  width: 8px;
-  height: 1.5px;
+  top: 0.7em;
+  width: 6px;
+  height: 1px;
   background: var(--accent);
 }
 
@@ -522,6 +562,9 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .role-company {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 8.25pt;
   font-weight: 700;
   color: var(--accent);
@@ -529,6 +572,12 @@ ul { list-style: none; margin: 0; padding: 0; }
   line-height: 1.3;
   text-transform: uppercase;
   letter-spacing: 0.14em;
+}
+
+.role-company .icon {
+  width: 10px;
+  height: 10px;
+  color: var(--accent);
 }
 
 .role-meta {
@@ -540,6 +589,10 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .role-dates {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
   font-weight: 700;
   color: var(--accent);
   margin: 0;
@@ -549,11 +602,21 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .role-location {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
   margin: 2px 0 0;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 7.5pt;
   color: var(--mute);
+}
+
+.role-meta .icon {
+  width: 10px;
+  height: 10px;
+  color: var(--accent);
 }
 
 .role-context {
@@ -628,14 +691,15 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin-bottom: 0;
 }
 
-/* Dash bullet — matches the Core Competencies treatment */
+/* Dash bullet — matches the Core Competencies treatment; 1px hairline for
+   consistent rendering (see note on .competency ul li::before above) */
 .achievements li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 0.7em;
-  width: 8px;
-  height: 1.5px;
+  top: 0.72em;
+  width: 6px;
+  height: 1px;
   background: var(--accent);
 }
 
@@ -686,12 +750,35 @@ ul { list-style: none; margin: 0; padding: 0; }
 .tech-group { break-inside: avoid; }
 
 .tech-cat {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-size: var(--fs-h3);
   font-weight: 700;
   color: var(--ink);
   margin: 0 0 6px;
   padding-bottom: 3px;
   border-bottom: 1px solid var(--accent);
+}
+
+/* Themed icon badge to the left of each tech category title */
+.tech-cat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--accent);
+  color: var(--paper);
+  border-radius: 3px;
+  flex-shrink: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.tech-cat-icon .icon {
+  width: 14px;
+  height: 14px;
 }
 
 .tech-list {

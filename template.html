@@ -12,6 +12,12 @@
     {{{ field }}}  -> raw HTML (use ONLY for fields that contain markup,
                       e.g. achievement bullets with <strong> emphasis)
 
+  Icon vocabulary (referenced via the SVG sprite below; pass the name in
+  the data as the "icon" field):
+    Competencies:  leadership · cloud · shield · merge · chart · network
+    Technical:     server · cable · code · grid
+    (Hero contact and role meta icons are hard-coded by position.)
+
   Expected data shape: see sample-data.json
   ============================================================================
 -->
@@ -23,7 +29,81 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="resume">
+
+<!-- SVG ICON SPRITE — keep above <main>; aria-hidden so ATS skips it -->
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <symbol id="icon-pin" viewBox="0 0 24 24">
+    <path d="M12 22s-7-7-7-12a7 7 0 0 1 14 0c0 5-7 12-7 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  </symbol>
+  <symbol id="icon-phone" viewBox="0 0 24 24">
+    <path d="M5 4h3l2 5-2.5 1.5c1 3 3 5 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-mail" viewBox="0 0 24 24">
+    <rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-linkedin" viewBox="0 0 24 24">
+    <path d="M20.45 20.45h-3.55v-5.56c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.65H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-leadership" viewBox="0 0 24 24">
+    <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M5 21v-1.5a5.5 5.5 0 0 1 5.5-5.5h3a5.5 5.5 0 0 1 5.5 5.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-cloud" viewBox="0 0 24 24">
+    <path d="M17 18.5h.5a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.5 10A4.5 4.5 0 0 0 6 18.9h11z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12 4l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7L9.7 6.3l1.7-.6z" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-shield" viewBox="0 0 24 24">
+    <path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-merge" viewBox="0 0 24 24">
+    <circle cx="9" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="15" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  </symbol>
+  <symbol id="icon-chart" viewBox="0 0 24 24">
+    <path d="M3 17l6-6 4 4 8-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M17 7h4v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-network" viewBox="0 0 24 24">
+    <circle cx="12" cy="5" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="5" cy="19" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="19" cy="19" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M12 7v3M12 10l-6 7M12 10l6 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-server" viewBox="0 0 24 24">
+    <rect x="3" y="4" width="18" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="3" y="14" width="18" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="7" cy="7" r="0.8" fill="currentColor"/>
+    <circle cx="7" cy="17" r="0.8" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-cable" viewBox="0 0 24 24">
+    <path d="M9 3v4M15 3v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M7 7h10v3a5 5 0 0 1-10 0V7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M12 15v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <rect x="9" y="18" width="6" height="3" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  </symbol>
+  <symbol id="icon-code" viewBox="0 0 24 24">
+    <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-grid" viewBox="0 0 24 24">
+    <rect x="3" y="3" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="14" y="3" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="3" y="14" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="14" y="14" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  </symbol>
+  <symbol id="icon-building" viewBox="0 0 24 24">
+    <rect x="4" y="3" width="16" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24">
+    <rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<main class="resume">
 
     <header class="hero">
       <div>
@@ -31,11 +111,10 @@
         {{#if headline}}<p class="headline">{{headline}}</p>{{/if}}
       </div>
       <address class="hero-contact">
-        {{#if location}}<span>{{location}}</span>{{/if}}
-        {{#if phone}}<a href="tel:{{phoneHref}}">{{phone}}</a>{{/if}}
-        {{#if email}}<a href="mailto:{{email}}">{{email}}</a>{{/if}}
-        {{#if linkedin}}<a href="{{linkedin.url}}">{{linkedin.label}}</a>{{/if}}
-        {{#if website}}<a href="{{website.url}}">{{website.label}}</a>{{/if}}
+        {{#if location}}<span><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-pin"/></svg>{{location}}</span>{{/if}}
+        {{#if phone}}<a href="tel:{{phoneHref}}"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-phone"/></svg>{{phone}}</a>{{/if}}
+        {{#if email}}<a href="mailto:{{email}}"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-mail"/></svg>{{email}}</a>{{/if}}
+        {{#if linkedin}}<a href="{{linkedin.url}}"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-linkedin"/></svg>{{linkedin.label}}</a>{{/if}}
       </address>
     </header>
 
@@ -64,6 +143,7 @@
       <div class="competency-grid">
         {{#each competencies}}
         <article class="competency">
+          {{#if icon}}<svg class="icon competency-icon" aria-hidden="true" focusable="false"><use href="#icon-{{icon}}"/></svg>{{/if}}
           <h3>{{title}}</h3>
           <ul>
             {{#each bullets}}<li>{{{this}}}</li>{{/each}}
@@ -95,11 +175,11 @@
         <header class="role-header">
           <div>
             <h3 class="role-title">{{title}}</h3>
-            <p class="role-company">{{company}}</p>
+            <p class="role-company"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-building"/></svg>{{company}}</p>
           </div>
           <div class="role-meta">
-            <p class="role-dates">{{dates}}</p>
-            {{#if location}}<p class="role-location">{{location}}</p>{{/if}}
+            <p class="role-dates"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-calendar"/></svg>{{dates}}</p>
+            {{#if location}}<p class="role-location"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-pin"/></svg>{{location}}</p>{{/if}}
           </div>
         </header>
         {{#if context}}<p class="role-context">{{context}}</p>{{/if}}
@@ -133,7 +213,10 @@
       <div class="technical-grid">
         {{#each technical}}
         <div class="tech-group">
-          <h3 class="tech-cat">{{category}}</h3>
+          <h3 class="tech-cat">
+            {{#if icon}}<span class="tech-cat-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-{{icon}}"/></svg></span>{{/if}}
+            {{category}}
+          </h3>
           <dl class="tech-list">
             {{#each items}}
             <dt>{{label}}</dt>
