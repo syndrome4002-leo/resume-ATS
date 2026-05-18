@@ -1,0 +1,791 @@
+/* ==========================================================================
+   EXECUTIVE RESUME — Visual + ATS-Optimized Stylesheet  (v2)
+   --------------------------------------------------------------------------
+   Design intent:
+     - Reads like a Korn Ferry / Heidrick executive bio: refined serif name,
+       Inter body, deep-teal accent, hairline rules, generous typographic
+       contrast within tight vertical rhythm.
+     - Marketing-brochure visual moments: Career Highlights metric band,
+       numbered section markers, executive career timeline, technology
+       tag-pills, alternating project row tints.
+
+   ATS strategy:
+     - Single-column source order; multi-column visual via CSS Grid only.
+     - Semantic <h1>/<h2>/<h3>, <ul>/<li>, <dl>/<dt>/<dd> throughout.
+     - No <img>, no icon fonts, no <table> for layout.
+     - Bullets rendered via ::before so parsers still see <li>.
+     - Section numbers are CSS counters in ::before — parsers never see them.
+     - Tech "pills" are real <li> elements — each tool is a discrete item
+       that ATS can extract individually.
+     - Career timeline uses semantic <ol> with role="list" — list items are
+       readable; the connecting bar/dots are pure CSS decoration.
+
+   Print:
+     - Letter size, 0.5" margins, page-break protections on roles + titles.
+     - print-color-adjust: exact ensures accent tints render in PDFs.
+
+   Portability:
+     - Headless Chromium (Puppeteer / Playwright) honors all of this as-is.
+     - WeasyPrint / wkhtmltopdf: self-host Inter + Fraunces (drop @import,
+       add @font-face with local woff2 files) to avoid network at render.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  /* ----- Palette --------------------------------------------------------- */
+  --ink:           #0B1426;   /* primary text, name, role titles            */
+  --body:          #1F2937;   /* body copy                                  */
+  --mute:          #475569;   /* meta, location, context                    */
+  --faint:         #94A3B8;   /* separators, tertiary                       */
+  --accent:        #0F4C5C;   /* deep teal — companies, year tags, rules    */
+  --accent-deep:   #083845;   /* slightly deeper for hover / emphasis       */
+  --accent-soft:   #E6EEF1;   /* tinted backgrounds                         */
+  --accent-pale:   #F4F8F9;   /* alternating row tint                       */
+  --rule:          #DDE3EA;
+  --rule-strong:   #0B1426;
+  --paper:         #FFFFFF;
+  --app-bg:        #ECEEF1;
+
+  /* ----- Typography ------------------------------------------------------ */
+  --font-display:  'Fraunces', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-body:     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* ----- Type scale ------------------------------------------------------ */
+  --fs-name:       36pt;
+  --fs-headline:   10.5pt;
+  --fs-section:    9pt;
+  --fs-sect-num:   11pt;
+  --fs-h3:         10.5pt;
+  --fs-body:       9.5pt;
+  --fs-meta:       8.75pt;
+  --fs-small:      8pt;
+  --fs-micro:      7.25pt;
+  --fs-highlight:  26pt;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--app-bg);
+  color: var(--body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  font-feature-settings: 'kern', 'liga', 'calt', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Force accent fills/tints to render in printed PDFs */
+.highlight, .tech-tags li, .role-stats .label,
+.competency h3, .tech-cat, .career-timeline,
+.summary-band, .project-list li:nth-child(even),
+.timeline-badge {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* --------------------------------------------------------------------------
+   Paper frame (visible on screen; flattened in print)
+   -------------------------------------------------------------------------- */
+.resume {
+  max-width: 8.5in;
+  margin: 24px auto;
+  padding: 0.55in 0.6in 0.5in;
+  background: var(--paper);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 14px 40px rgba(15, 23, 42, 0.10);
+  counter-reset: section;   /* drives 01 / 02 / 03 ... section numbers */
+}
+
+/* --------------------------------------------------------------------------
+   HEADER
+   -------------------------------------------------------------------------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: end;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--rule-strong);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-name);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+
+.headline {
+  font-size: var(--fs-headline);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+
+.hero-contact {
+  font-style: normal;
+  font-size: var(--fs-meta);
+  color: var(--mute);
+  text-align: right;
+  line-height: 1.65;
+  padding-left: 18px;
+  border-left: 3px solid var(--accent);
+}
+
+.hero-contact > * {
+  display: block;
+  color: var(--body);
+  text-decoration: none;
+}
+
+.hero-contact a:hover { color: var(--accent); }
+
+/* --------------------------------------------------------------------------
+   CAREER HIGHLIGHTS — marketing-brochure metric band
+   -------------------------------------------------------------------------- */
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 0 0 18px;
+  padding: 16px 4px;
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+}
+
+.highlight {
+  text-align: center;
+  padding: 0 14px;
+  position: relative;
+}
+
+.highlight + .highlight::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12%;
+  bottom: 12%;
+  width: 1px;
+  background: rgba(15, 76, 92, 0.18);
+}
+
+.highlight-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-highlight);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.highlight-label {
+  display: block;
+  font-size: 8.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+  margin: 0 0 2px;
+}
+
+.highlight-sub {
+  display: block;
+  font-size: var(--fs-micro);
+  color: var(--mute);
+  line-height: 1.35;
+}
+
+/* --------------------------------------------------------------------------
+   SECTIONS — shared
+   --------------------------------------------------------------------------
+   Each section opens with a header band: a filled deep-teal tile holding
+   the numeral, a soft-tinted bar carrying the title, and a 4px accent
+   left rule. Sections are visually distinct blocks separated by generous
+   whitespace and an optional hairline divider between them.
+   -------------------------------------------------------------------------- */
+section {
+  margin: 0 0 22px;
+  position: relative;
+}
+
+section:last-child { margin-bottom: 0; }
+
+/* Optional hairline divider between sections — a small accent dash at right */
+section:not(:last-child)::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--accent);
+  margin: 18px 0 0 auto;
+  opacity: 0.35;
+}
+
+.section-title {
+  position: relative;
+  margin: 0 0 14px;
+  padding: 8px 16px 8px 52px;
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-bottom: none;
+  font-size: var(--fs-section);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.2;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Filled accent numeral tile, anchored to the left of the title band */
+.section-title::before {
+  counter-increment: section;
+  content: counter(section, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12.5pt;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+p { margin: 0 0 8px; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+/* --------------------------------------------------------------------------
+   EXECUTIVE SUMMARY
+   -------------------------------------------------------------------------- */
+.summary p {
+  margin: 0;
+  text-align: justify;
+  hyphens: auto;
+  color: var(--body);
+}
+
+/* --------------------------------------------------------------------------
+   CORE COMPETENCIES — editorial capability tiles
+   --------------------------------------------------------------------------
+   Each card: subtle top-to-bottom tint gradient, 4px deep-teal top bar,
+   large faded numeral in the corner (CSS counter), refined dash bullets.
+   No icons, no images — all decoration via CSS so ATS only ever reads
+   the <h3> title and the <ul><li> bullets.
+   -------------------------------------------------------------------------- */
+.competency-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  counter-reset: competency;
+}
+
+.competency {
+  position: relative;
+  padding: 13px 14px 12px;
+  background:
+    linear-gradient(180deg, var(--paper) 0%, var(--accent-pale) 100%);
+  border-top: 4px solid var(--accent);
+  border-bottom: 1px solid var(--rule);
+  break-inside: avoid;
+  overflow: hidden;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Large faded numeral, top-right — decorative editorial flourish */
+.competency::before {
+  counter-increment: competency;
+  content: counter(competency, decimal-leading-zero);
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24pt;
+  color: var(--accent);
+  opacity: 0.18;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+}
+
+/* Subtle decorative corner accent (bottom-right triangle) */
+.competency::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 22px;
+  height: 22px;
+  background:
+    linear-gradient(135deg, transparent 50%, rgba(15, 76, 92, 0.10) 50%);
+  pointer-events: none;
+}
+
+.competency h3 {
+  position: relative;
+  font-size: 10.25pt;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 32px 7px 0;
+  padding: 0;
+  border: none;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+}
+
+.competency ul {
+  position: relative;
+}
+
+.competency ul li {
+  position: relative;
+  padding-left: 13px;
+  margin: 0 0 4px;
+  font-size: var(--fs-body);
+  line-height: 1.42;
+  color: var(--body);
+}
+
+.competency ul li:last-child {
+  margin-bottom: 0;
+}
+
+/* Refined dash bullet — editorial, more confident than a small square */
+.competency ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 8px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   CAREER TIMELINE  (executive milestones, top of Experience section)
+   -------------------------------------------------------------------------- */
+.career-timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 14px 18px 6px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+}
+
+.career-timeline::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(to right, var(--accent) 0%, var(--accent) 100%);
+  z-index: 0;
+}
+
+.career-timeline li {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.career-timeline li::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: var(--paper);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  margin: 0 0 5px;
+  box-shadow: 0 0 0 3px var(--paper);
+}
+
+.timeline-year {
+  display: block;
+  font-weight: 700;
+  font-size: 8.5pt;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.timeline-label {
+  display: block;
+  font-size: var(--fs-micro);
+  color: var(--mute);
+  margin-top: 1px;
+  line-height: 1.25;
+}
+
+.timeline-badge {
+  display: inline-block;
+  margin-top: 3px;
+  padding: 1px 6px;
+  font-size: 6.5pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   PROFESSIONAL EXPERIENCE — editorial timeline entries
+   --------------------------------------------------------------------------
+   Each role: deep-teal left bar with a milestone bead at the top, serif
+   role title for editorial weight, small-caps accent company, accent dates,
+   hairline-separated stats with the OUTCOME stat surfaced as a filled pill.
+   Bullets match the dash treatment from Core Competencies for consistency.
+   -------------------------------------------------------------------------- */
+.role {
+  position: relative;
+  margin: 0 0 14px;
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--accent);
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.role:last-child { margin-bottom: 0; }
+
+/* Milestone bead at the top of each role's accent bar */
+.role::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  background: var(--paper);
+  border: 2.5px solid var(--accent);
+  border-radius: 50%;
+  z-index: 1;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.role-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 18px;
+  margin-bottom: 3px;
+}
+
+.role-title {
+  font-family: var(--font-display);
+  font-size: 12.5pt;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.role-company {
+  font-size: 8.25pt;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 3px 0 0;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.role-meta {
+  text-align: right;
+  font-size: var(--fs-meta);
+  color: var(--mute);
+  line-height: 1.4;
+  padding-top: 2px;
+}
+
+.role-dates {
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 9.25pt;
+  letter-spacing: 0.01em;
+}
+
+.role-location {
+  margin: 2px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 7.5pt;
+  color: var(--mute);
+}
+
+.role-context {
+  font-size: var(--fs-meta);
+  color: var(--mute);
+  font-style: italic;
+  margin: 4px 0 6px;
+}
+
+.role-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  margin: 0 0 7px;
+  padding: 0;
+  list-style: none;
+  font-size: 8pt;
+  line-height: 1.5;
+}
+
+.role-stats li {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0 11px 0 0;
+  margin-right: 11px;
+  border-right: 1px solid var(--rule);
+  color: var(--body);
+}
+
+.role-stats li:last-child,
+.role-stats li.outcome {
+  border-right: none;
+}
+
+.role-stats li.outcome {
+  padding: 1px 9px;
+  margin-right: 0;
+  background: var(--accent);
+  color: var(--paper);
+  border-radius: 2px;
+  border: none;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.role-stats .label {
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 6.75pt;
+  margin-right: 5px;
+}
+
+.role-stats li.outcome .label {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.achievements li {
+  position: relative;
+  padding-left: 14px;
+  margin: 0 0 4px;
+  text-align: justify;
+  hyphens: auto;
+  line-height: 1.45;
+}
+
+.achievements li:last-child {
+  margin-bottom: 0;
+}
+
+/* Dash bullet — matches the Core Competencies treatment */
+.achievements li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 8px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+.achievements strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   SELECTED PROJECTS  (dense 2-column with subtle row alternation)
+   -------------------------------------------------------------------------- */
+.project-list {
+  columns: 2;
+  column-gap: 28px;
+  column-rule: 1px solid var(--rule);
+  padding: 0;
+  list-style: none;
+}
+
+.project-list li {
+  break-inside: avoid;
+  margin: 0;
+  padding: 2px 8px;
+  font-size: var(--fs-meta);
+  line-height: 1.45;
+}
+
+.project-list li:nth-child(even) {
+  background: var(--accent-pale);
+}
+
+.project-year {
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  margin-right: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   TECHNICAL EXPERTISE  (4 category groups in 2x2 grid; tag pills inside)
+   -------------------------------------------------------------------------- */
+.technical-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 28px;
+}
+
+.tech-group { break-inside: avoid; }
+
+.tech-cat {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 6px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--accent);
+}
+
+.tech-list {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 5px 10px;
+  margin: 0;
+  font-size: var(--fs-body);
+  align-items: start;
+}
+
+.tech-list dt {
+  font-weight: 700;
+  color: var(--mute);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-top: 2px;
+}
+
+.tech-list dd {
+  margin: 0;
+  color: var(--body);
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tech-tags li {
+  display: inline-block;
+  padding: 1px 7px;
+  font-size: 7.75pt;
+  font-weight: 500;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  border: 1px solid rgba(15, 76, 92, 0.18);
+  border-radius: 3px;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   EDUCATION & ADDITIONAL
+   -------------------------------------------------------------------------- */
+.meta-list {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+.meta-list dt {
+  font-weight: 700;
+  color: var(--mute);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.meta-list dd { margin: 0; color: var(--body); }
+
+/* --------------------------------------------------------------------------
+   PRINT
+   -------------------------------------------------------------------------- */
+@page {
+  size: Letter;
+  margin: 0.5in 0.55in;
+}
+
+@media print {
+  html, body { background: var(--paper); }
+
+  .resume {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .section-title  { page-break-after: avoid; break-after: avoid; }
+  .role-header    { page-break-after: avoid; break-after: avoid; }
+  .role           { page-break-inside: avoid; break-inside: avoid; }
+  .competency     { page-break-inside: avoid; break-inside: avoid; }
+  .tech-group     { page-break-inside: avoid; break-inside: avoid; }
+  .highlights     { page-break-inside: avoid; break-inside: avoid; }
+  .career-timeline { page-break-inside: avoid; break-inside: avoid; }
+
+  a { color: inherit; text-decoration: none; }
+
+  body { font-size: 9.5pt; }
+}

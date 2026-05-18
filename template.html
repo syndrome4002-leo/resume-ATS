@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  EXECUTIVE RESUME TEMPLATE  (Handlebars / Mustache syntax)
+  ----------------------------------------------------------------------------
+  Render with: handlebars, mustache.js, hbs, express-handlebars, or any
+  spec-compatible engine. Trivially ports to Jinja2/Nunjucks/Liquid by
+  swapping {{#each}} / {{#if}} for the host engine's equivalents.
+
+  Escaping rules:
+    {{ field }}    -> HTML-escaped (default; safe for arbitrary DB content)
+    {{{ field }}}  -> raw HTML (use ONLY for fields that contain markup,
+                      e.g. achievement bullets with <strong> emphasis)
+
+  Expected data shape: see sample-data.json
+  ============================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{name}} &mdash; Executive Resume</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="resume">
+
+    <header class="hero">
+      <div>
+        <h1 class="name">{{name}}</h1>
+        {{#if headline}}<p class="headline">{{headline}}</p>{{/if}}
+      </div>
+      <address class="hero-contact">
+        {{#if location}}<span>{{location}}</span>{{/if}}
+        {{#if phone}}<a href="tel:{{phoneHref}}">{{phone}}</a>{{/if}}
+        {{#if email}}<a href="mailto:{{email}}">{{email}}</a>{{/if}}
+        {{#if linkedin}}<a href="{{linkedin.url}}">{{linkedin.label}}</a>{{/if}}
+        {{#if website}}<a href="{{website.url}}">{{website.label}}</a>{{/if}}
+      </address>
+    </header>
+
+    {{#if highlights.length}}
+    <aside class="highlights" aria-label="Career highlights">
+      {{#each highlights}}
+      <div class="highlight">
+        <span class="highlight-value">{{value}}</span>
+        <span class="highlight-label">{{label}}</span>
+        {{#if sub}}<span class="highlight-sub">{{sub}}</span>{{/if}}
+      </div>
+      {{/each}}
+    </aside>
+    {{/if}}
+
+    {{#if summary}}
+    <section class="summary">
+      <h2 class="section-title">Executive Summary</h2>
+      <p>{{{summary}}}</p>
+    </section>
+    {{/if}}
+
+    {{#if competencies.length}}
+    <section class="competencies">
+      <h2 class="section-title">Core Competencies</h2>
+      <div class="competency-grid">
+        {{#each competencies}}
+        <article class="competency">
+          <h3>{{title}}</h3>
+          <ul>
+            {{#each bullets}}<li>{{{this}}}</li>{{/each}}
+          </ul>
+        </article>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
+
+    {{#if experience.length}}
+    <section class="experience">
+      <h2 class="section-title">Professional Experience</h2>
+
+      {{#if timeline.length}}
+      <ol class="career-timeline" aria-label="Career timeline">
+        {{#each timeline}}
+        <li>
+          <span class="timeline-year">{{year}}</span>
+          <span class="timeline-label">{{label}}</span>
+          {{#if badge}}<span class="timeline-badge">{{badge}}</span>{{/if}}
+        </li>
+        {{/each}}
+      </ol>
+      {{/if}}
+
+      {{#each experience}}
+      <article class="role">
+        <header class="role-header">
+          <div>
+            <h3 class="role-title">{{title}}</h3>
+            <p class="role-company">{{company}}</p>
+          </div>
+          <div class="role-meta">
+            <p class="role-dates">{{dates}}</p>
+            {{#if location}}<p class="role-location">{{location}}</p>{{/if}}
+          </div>
+        </header>
+        {{#if context}}<p class="role-context">{{context}}</p>{{/if}}
+        {{#if stats.length}}
+        <ul class="role-stats">
+          {{#each stats}}<li{{#if class}} class="{{class}}"{{/if}}><span class="label">{{label}}</span> {{value}}</li>{{/each}}
+        </ul>
+        {{/if}}
+        {{#if achievements.length}}
+        <ul class="achievements">
+          {{#each achievements}}<li>{{{this}}}</li>{{/each}}
+        </ul>
+        {{/if}}
+      </article>
+      {{/each}}
+    </section>
+    {{/if}}
+
+    {{#if projects.length}}
+    <section class="projects">
+      <h2 class="section-title">Selected Projects</h2>
+      <ul class="project-list">
+        {{#each projects}}<li><span class="project-year">{{year}}</span>{{title}}</li>{{/each}}
+      </ul>
+    </section>
+    {{/if}}
+
+    {{#if technical.length}}
+    <section class="technical">
+      <h2 class="section-title">Technical Expertise</h2>
+      <div class="technical-grid">
+        {{#each technical}}
+        <div class="tech-group">
+          <h3 class="tech-cat">{{category}}</h3>
+          <dl class="tech-list">
+            {{#each items}}
+            <dt>{{label}}</dt>
+            <dd><ul class="tech-tags">{{#each values}}<li>{{this}}</li>{{/each}}</ul></dd>
+            {{/each}}
+          </dl>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
+
+    {{#if additional.length}}
+    <section class="additional">
+      <h2 class="section-title">Education &amp; Additional Information</h2>
+      <dl class="meta-list">
+        {{#each additional}}<dt>{{label}}</dt><dd>{{value}}</dd>{{/each}}
+      </dl>
+    </section>
+    {{/if}}
+
+  </main>
+</body>
+</html>

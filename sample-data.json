@@ -1,0 +1,249 @@
+{
+  "name": "First Last",
+  "headline": "CTO · CIO · Technology-Focused COO",
+  "location": "Anytown, USA",
+  "phone": "+1 212 555 1212",
+  "phoneHref": "+12125551212",
+  "email": "email@domain.com",
+  "linkedin": {
+    "url": "https://linkedin.com/in/firstlast",
+    "label": "linkedin.com/in/firstlast"
+  },
+
+  "highlights": [
+    { "value": "25+",     "label": "Years",     "sub": "Technology Leadership" },
+    { "value": "9",       "label": "M&A Deals", "sub": "Diligence & Integration" },
+    { "value": "3",       "label": "Exits",     "sub": "IPO · Acquisition · Series A" },
+    { "value": "99.999%", "label": "Uptime",    "sub": "Enterprise Platforms" }
+  ],
+
+  "summary": "Executive technology leader with 25+ years of experience driving enterprise digital transformation, cloud modernization, cybersecurity, and post-M&A integration across regulated and high-growth environments. Leverages deep technical expertise and emerging technologies—including AI and ML automation—to enable scalable growth and operational excellence through modern IT operating models, cost optimization, and scalable platforms. A trusted advisor to the C-suite and board, builds high-performing teams, bridges business and technology, and is known for stabilizing complex environments, scaling platforms, and preparing organizations for growth or exit.",
+
+  "competencies": [
+    {
+      "title": "Executive Leadership & Digital Transformation",
+      "bullets": [
+        "Drive enterprise digital transformation and culture change",
+        "Strategic, hands-on leader focused on execution and measurable outcomes",
+        "Build high-performing, cross-functional global teams aligned to strategy"
+      ]
+    },
+    {
+      "title": "Cloud, Infrastructure & IT Modernization",
+      "bullets": [
+        "Deep expertise in cloud and hybrid architecture, migrations, operations (AWS, Azure)",
+        "Led large-scale infrastructure modernization improving scalability, resilience, cost efficiency",
+        "Data-driven leader leveraging analytics, automation, AI/ML"
+      ]
+    },
+    {
+      "title": "Cybersecurity, Risk & Compliance",
+      "bullets": [
+        "Led cybersecurity, privacy, and compliance (HITRUST, HIPAA, SOC 2, Zero Trust)",
+        "Led audit readiness, risk management, and security governance",
+        "Oversaw SOC operations, vulnerability management, and security awareness"
+      ]
+    },
+    {
+      "title": "Mergers & Acquisitions",
+      "bullets": [
+        "Led technology due-diligence and integration strategy for 9 acquisitions",
+        "Executed rapid post-merger integration and systems consolidation",
+        "Drove change management to achieve cost synergies and operational efficiency"
+      ]
+    },
+    {
+      "title": "Operational Excellence & Financial Management",
+      "bullets": [
+        "Optimized operations through process redesign, automation, consolidation",
+        "Designed and operated highly available platforms achieving 99.999% uptime",
+        "Managed multi-million-dollar IT budgets, enterprise vendors, third-party risk"
+      ]
+    },
+    {
+      "title": "Enterprise Technology & Network Architecture",
+      "bullets": [
+        "Enterprise Business Continuity & Disaster Recovery (BCDR) across environments",
+        "Broad technical depth across systems, storage, virtualization, operations",
+        "Deployed and scaled secure voice and data networks"
+      ]
+    }
+  ],
+
+  "timeline": [
+    { "year": "2012", "label": "Company 5", "badge": "Series A" },
+    { "year": "2015", "label": "Company 4" },
+    { "year": "2017", "label": "Company 3", "badge": "IPO" },
+    { "year": "2021", "label": "Company 2", "badge": "Acquired" },
+    { "year": "2023", "label": "Company 1", "badge": "Current" }
+  ],
+
+  "experience": [
+    {
+      "title": "Job Title 1",
+      "company": "Company 1",
+      "location": "New York, NY",
+      "dates": "2023 – Present",
+      "context": "Healthcare technology — AI-enabled clinical platforms, EHR modernization.",
+      "stats": [
+        { "label": "Scope",  "value": "Systems, Storage, Network, Development, Data Strategy" },
+        { "label": "Team",   "value": "25–35 (100% employee)" },
+        { "label": "Budget", "value": "$3.5M" }
+      ],
+      "achievements": [
+        "Delivered a next-generation, AI-powered Electronic Health Record (EHR) system leveraging Microsoft Co-Pilot, enabling real-time clinical decision support and documentation automation; <strong>reduced provider charting time by 40%</strong> and significantly improved data accuracy across clinical workflows.",
+        "Designed and implemented a machine learning-driven NMS solution that analyzed historical performance data to proactively predict and prevent infrastructure failures, <strong>reducing downtime by 50% and increasing NPS</strong> by streamlining operations through targeted proactive alerts.",
+        "Fostered a goal-oriented, lead-by-example culture that <strong>boosted productivity by 50% and reduced turnover</strong> through trust, mentorship, recognition, and career-pathing initiatives."
+      ]
+    },
+    {
+      "title": "Job Title 2",
+      "company": "Company 2",
+      "location": "New York, NY",
+      "dates": "2021 – 2023",
+      "context": "Growth-stage operator — multi-site consolidation, exit via acquisition.",
+      "stats": [
+        { "label": "Scope",   "value": "Network, Systems, Service Desk" },
+        { "label": "Team",    "value": "20–25 (100% employee)" },
+        { "label": "Budget",  "value": "$2.1M" },
+        { "label": "Outcome", "value": "2 acquisitions · Exit via acquisition", "class": "outcome" }
+      ],
+      "achievements": [
+        "Implemented and consolidated multiple Tier IV datacenters across geographically dispersed sites with a unified architecture and operating model that <strong>reduced operational costs by 30%</strong>, improved redundancy, and enabled scalable infrastructure growth across the enterprise.",
+        "Led cross-functional steering committee to consolidate fragmented and unreliable telecommunications systems by standardizing on Microsoft Teams Voice, resulting in a <strong>70% reduction in telecom spend</strong> and improved cross-site reliability, interoperability, and coverage.",
+        "Led post-acquisition tech-debt consolidation across multiple business units by standardizing and stabilizing critical legacy applications; <strong>reduced unplanned downtime by 95%</strong>, boosted order-fulfillment performance, and positioned IT for scalable integration and future transformation."
+      ]
+    },
+    {
+      "title": "Job Title 3",
+      "company": "Company 3",
+      "location": "Washington, DC",
+      "dates": "2017 – 2021",
+      "context": "Nationwide acute-care SaaS — HITRUST-certified, IPO outcome.",
+      "stats": [
+        { "label": "Scope",   "value": "NOC, Network, Systems, Field Ops, Development" },
+        { "label": "Team",    "value": "50–65 (80% employee / 20% contractor)" },
+        { "label": "Budget",  "value": "$6M" },
+        { "label": "Outcome", "value": "3 acquisitions · Exit via IPO", "class": "outcome" }
+      ],
+      "achievements": [
+        "Designed and led end-to-end implementation of a 24×7×365 SaaS platform supporting nationwide acute care services that enabled rapid growth and directly supported the company's <strong>200% revenue growth and successful IPO</strong>.",
+        "Led design, implementation, and validation of enterprise-wide business continuity and disaster recovery plans meeting HIPAA and HITRUST requirements, resulting in a <strong>40% improvement in RTO/RPO</strong> metrics and sustained <strong>99.999% uptime</strong> across critical infrastructure.",
+        "Played a key role in achieving HITRUST compliance by assessing infrastructure gaps, implementing security controls, and leading cross-functional remediation efforts — annual certification with <strong>zero critical findings</strong> and improved audit readiness across the organization."
+      ]
+    },
+    {
+      "title": "Job Title 4",
+      "company": "Company 4",
+      "location": "Miami, FL",
+      "dates": "2015 – 2017",
+      "context": "Carrier-grade operations — hybrid cloud transformation, process automation.",
+      "stats": [
+        { "label": "Scope",  "value": "NOC, Operations, Order Entry" },
+        { "label": "Team",   "value": "65–70 (50% employee / 50% contractor)" },
+        { "label": "Budget", "value": "$5.5M" }
+      ],
+      "achievements": [
+        "Led executive steering committee through a $2M cloud transformation to AWS and Azure, aligning finance, operations, and security teams to ensure enterprise buy-in and adoption — <strong>reduced support costs by 30%</strong> and improved system scalability and disaster-recovery capabilities.",
+        "Led a company-wide SOP transformation and automation initiative that standardized order-provisioning workflows; <strong>reduced provisioning times by 30% and cut post-installation troubleshooting by 50%</strong> through process reengineering, system integration, and targeted automation."
+      ]
+    },
+    {
+      "title": "Job Title 5",
+      "company": "Company 5",
+      "location": "Chicago, IL",
+      "dates": "2012 – 2015",
+      "context": "Early-stage VoIP/PBX platform — product leadership, Series A.",
+      "stats": [
+        { "label": "Scope",   "value": "Engineering, Development, Support" },
+        { "label": "Team",    "value": "15–25 (90% employee / 10% contractor)" },
+        { "label": "Outcome", "value": "Exit via Series A funding", "class": "outcome" }
+      ],
+      "achievements": [
+        "Product visionary leading development of a scalable hybrid VoIP/PBX platform and aligning go-to-market strategy — the cornerstone of the company's <strong>40% YoY revenue growth</strong> strategy and directly supported a <strong>$25M Series A funding round</strong>.",
+        "Led a strategic cost-consolidation initiative to rehome over 2,000 customer and backhaul circuits to optimized Points of Presence (PoPs); achieved complete operational transparency and minimized customer impact while delivering <strong>$275K in annual savings</strong> and improving network efficiency.",
+        "Redesigned legacy billing systems by implementing automated provisioning and activation workflows, enabling real-time billing and reducing manual errors; uncovered and <strong>corrected $350K in unbilled revenue</strong> through audit and system modernization."
+      ]
+    }
+  ],
+
+  "projects": [
+    { "year": "2025", "title": "Implemented Zero Trust" },
+    { "year": "2025", "title": "Datacenter compute & storage upgrade" },
+    { "year": "2025", "title": "Microsoft license automation" },
+    { "year": "2025", "title": "HITRUST Re-Certification achieved" },
+    { "year": "2024", "title": "Teams Voice automated call scheduler" },
+    { "year": "2024", "title": "Datacenter networking modernization & refresh" },
+    { "year": "2024", "title": "HITRUST Re-Certification achieved" },
+    { "year": "2023", "title": "Custom NMS implementation" },
+    { "year": "2023", "title": "Custom CRM / OSS / BSS implementation" },
+    { "year": "2022", "title": "Teams Voice real-time ACD stats" },
+    { "year": "2022", "title": "AWS data warehouse implementation" },
+    { "year": "2022", "title": "Real-time KPI dashboard development" },
+    { "year": "2021", "title": "Geo-diverse datacenter build & migration" },
+    { "year": "2021", "title": "HITRUST Re-Certification achieved" },
+    { "year": "2020", "title": "Migrated from DUO to Entra ID" },
+    { "year": "2020", "title": "IoT appliance + OSS/BSS ecosystem" },
+    { "year": "2020", "title": "Initial HITRUST Certification achieved" },
+    { "year": "2019", "title": "PTZ control over WebRTC" },
+    { "year": "2019", "title": "BC/DR validation & testing" },
+    { "year": "2019", "title": "Multi-tenant ACD screen-pop solution" },
+    { "year": "2018", "title": "Call Manager PBX migration" },
+    { "year": "2017", "title": "Automation of legacy telemetry systems" },
+    { "year": "2016", "title": "30k-customer VoIP migration" },
+    { "year": "2015", "title": "Implemented Genband SBC HA pair" },
+    { "year": "2015", "title": "Five-datacenter build & migration" }
+  ],
+
+  "technical": [
+    {
+      "category": "Systems & Infrastructure",
+      "items": [
+        { "label": "Cloud",          "values": ["AWS", "Azure", "Google Workspace", "Microsoft 365"] },
+        { "label": "Virtualization", "values": ["Hyper-V", "VMware", "Proxmox", "KVM"] },
+        { "label": "OS",             "values": ["Linux (all)", "Windows Server (all)"] },
+        { "label": "Storage",        "values": ["Dell EMC", "NetApp", "NFS", "iSCSI", "Fibre Channel"] },
+        { "label": "Identity",       "values": ["Active Directory", "LDAP", "Entra ID", "Okta", "DUO"] },
+        { "label": "IoT",            "values": ["End-to-end platform development"] }
+      ]
+    },
+    {
+      "category": "Network & Telecom",
+      "items": [
+        { "label": "Routing",   "values": ["Cisco CatOS", "IOS", "NX-OS", "ACI"] },
+        { "label": "Switching", "values": ["Cisco", "Meraki", "Fortinet", "Ubiquiti"] },
+        { "label": "Firewalls", "values": ["FortiGate", "Palo Alto", "Cisco ASA", "SonicWall", "WatchGuard"] },
+        { "label": "Protocols", "values": ["BGP", "OSPF", "IPSec", "GRE", "WireGuard", "OpenVPN", "SD-WAN"] },
+        { "label": "Telecom",   "values": ["SIP", "RTP/SRTP", "T1", "DS3", "Ethernet", "Microwave", "Satellite"] },
+        { "label": "PBX",       "values": ["Teams Voice", "Asterisk", "Broadsoft", "Nortel", "Avaya", "Polycom", "Call Manager"] }
+      ]
+    },
+    {
+      "category": "Development & Business Intelligence",
+      "items": [
+        { "label": "Platforms",     "values": ["Azure DevOps", "Visual Studio", "Git", "LAMP/WAMP"] },
+        { "label": "Languages",     "values": ["Python", "PHP", ".NET", "JavaScript", "C#", "REST APIs"] },
+        { "label": "ETL",           "values": ["AWS DMS", "SSIS"] },
+        { "label": "Databases",     "values": ["MS SQL", "MySQL/MariaDB", "PostgreSQL", "InterSystems IRIS"] },
+        { "label": "BI",            "values": ["Microsoft Clarity", "Google Analytics", "SSRS", "Redshift"] },
+        { "label": "Visualization", "values": ["Power BI/Fabric", "Tableau", "Sisense"] }
+      ]
+    },
+    {
+      "category": "Applications & Security",
+      "items": [
+        { "label": "CRM",      "values": ["Dynamics", "Salesforce", "VersaSRS", "HubSpot", "custom OSS/BSS"] },
+        { "label": "Security", "values": ["Qualys", "Tenable", "Taegis", "Endpoint Central", "Zero Trust"] },
+        { "label": "WAF",      "values": ["CloudFlare", "Imperva"] },
+        { "label": "NMS",      "values": ["PRTG", "SolarWinds", "Zabbix", "Nagios", "SNMP", "API", "SSH"] },
+        { "label": "Other",    "values": ["InterSystems HealthShare"] }
+      ]
+    }
+  ],
+
+  "additional": [
+    { "label": "Education",  "value": "B.S. Computer Science · M.B.A." },
+    { "label": "Travel",     "value": "Domestic & International, up to 100%" },
+    { "label": "Clearance",  "value": "Background clear; able to obtain clearance as needed" }
+  ]
+}
